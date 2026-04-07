@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>M&N Calculator</title>
+
+<style>
+body{
+font-family:Arial;
+background:#ffd6e7;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:20px;
+border-radius:20px;
+width:320px;
+text-align:center;
+}
+
+#display{
+width:95%;
+height:50px;
+font-size:22px;
+text-align:right;
+margin-bottom:10px;
+}
+
+button{
+padding:12px;
+margin:3px;
+border:none;
+border-radius:10px;
+background:#ff9ec7;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff7fb2;
+}
+
+.gamebtn{
+width:95%;
+margin-top:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>M&N Calculator</h1>
+
+<input id="display" readonly>
+
+<br>
+
+<button onclick="press('7')">7</button>
+<button onclick="press('8')">8</button>
+<button onclick="press('9')">9</button>
+<button onclick="press('/')">÷</button>
+
+<br>
+
+<button onclick="press('4')">4</button>
+<button onclick="press('5')">5</button>
+<button onclick="press('6')">6</button>
+<button onclick="press('*')">×</button>
+
+<br>
+
+<button onclick="press('1')">1</button>
+<button onclick="press('2')">2</button>
+<button onclick="press('3')">3</button>
+<button onclick="press('-')">−</button>
+
+<br>
+
+<button onclick="press('0')">0</button>
+<button onclick="calculate()">=</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="press('+')">+</button>
+
+<br><br>
+
+<button class="gamebtn" onclick="mathGame()">Math Game</button>
+<button class="gamebtn" onclick="guessGame()">Guess Number</button>
+<button class="gamebtn" onclick="speedGame()">Speed Math</button>
+<button class="gamebtn" onclick="memoryGame()">Memory Game</button>
+
+<p id="score">Score: 0</p>
+
+</div>
+
+<script>
+
+let score=0;
+
+function press(num){
+document.getElementById("display").value+=num;
+}
+
+function calculate(){
+let display=document.getElementById("display");
+display.value=eval(display.value);
+}
+
+function clearDisplay(){
+document.getElementById("display").value="";
+}
+
+function updateScore(){
+document.getElementById("score").innerText="Score: "+score;
+}
+
+function mathGame(){
+let a=Math.floor(Math.random()*10)+1;
+let b=Math.floor(Math.random()*10)+1;
+
+let ans=prompt("Solve: "+a+" + "+b);
+
+if(ans==a+b){
+score++;
+alert("Correct!");
+}else{
+alert("Wrong! Answer: "+(a+b));
+}
+
+updateScore();
+}
+
+function guessGame(){
+let num=Math.floor(Math.random()*10)+1;
+
+let guess=prompt("Guess a number 1-10");
+
+if(guess==num){
+score++;
+alert("You win!");
+}else{
+alert("Wrong! Number was "+num);
+}
+
+updateScore();
+}
+
+function speedGame(){
+let a=Math.floor(Math.random()*10)+1;
+let b=Math.floor(Math.random()*10)+1;
+
+let start=Date.now();
+
+let ans=prompt("Quick! "+a+" + "+b);
+
+let time=(Date.now()-start)/1000;
+
+if(ans==a+b && time<5){
+score++;
+alert("Correct and fast!");
+}else{
+alert("Too slow or wrong!");
+}
+
+updateScore();
+}
+
+function memoryGame(){
+let number=Math.floor(Math.random()*100);
+
+alert("Remember: "+number);
+
+setTimeout(function(){
+
+let guess=prompt("What was the number?");
+
+if(guess==number){
+score++;
+alert("Great memory!");
+}else{
+alert("Wrong! It was "+number);
+}
+
+updateScore();
+
+},3000);
+}
+
+</script>
+
+</body>
+</html>
